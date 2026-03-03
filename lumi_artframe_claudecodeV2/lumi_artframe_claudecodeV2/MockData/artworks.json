@@ -1,0 +1,47 @@
+[
+  {
+    "id": "mock-001",
+    "title": "Rainbow Dragon",
+    "image_url": "https://picsum.photos/seed/art1/400/500",
+    "video_url": "https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4",
+    "video_task_id": "task-001",
+    "video_status": "completed",
+    "story_title": "The Rainbow Dragon's Adventure",
+    "story_content": "Once upon a time, in a land of swirling colors, there lived a little dragon named Spectrum. Unlike other dragons who breathed fire, Spectrum breathed beautiful rainbows that painted the sky. One morning, Spectrum noticed the world had turned gray. All the colors had vanished! With a mighty roar, Spectrum soared through the clouds, leaving trails of red, orange, yellow, green, blue, and purple wherever they flew. The flowers bloomed again, the butterflies danced, and the children below laughed and pointed at the magnificent rainbow streaking across the sky.",
+    "video_prompt": "A colorful cartoon dragon flying through clouds, breathing rainbows, flowers blooming below, children watching in wonder, whimsical animation style",
+    "creativity_analysis": "The child demonstrates exceptional color awareness and imaginative thinking. The combination of a dragon with rainbow powers shows creative fusion of fantasy elements. The use of vibrant colors indicates emotional expressiveness and confidence.",
+    "mood_analysis": "The artwork conveys joy and optimism. The bright palette and upward-flying dragon suggest a positive emotional state. The child appears to be in a happy, creative mood with strong self-expression capabilities.",
+    "additional_insights": "This artwork shows advanced symbolic thinking for the age group. The dragon may represent the child's desire for power and freedom, while the rainbow symbolizes hope and diversity of experience.",
+    "created_at": "2026-03-01T10:30:00Z"
+  },
+  {
+    "id": "mock-002",
+    "title": "My Family",
+    "image_url": "https://picsum.photos/seed/art2/400/500",
+    "video_url": null,
+    "video_task_id": "task-002",
+    "video_status": "processing",
+    "story_title": "The Magic Family House",
+    "story_content": "In a cozy house on Sunshine Street lived the happiest family in the whole wide world. Mom loved to bake cookies that smelled like happiness, Dad could fix anything with his magic toolbox, and little Emma had the most wonderful superpower of all - she could make everyone smile with her drawings. Every evening, they would gather around the kitchen table, and Emma would show her latest masterpiece while Mom and Dad clapped and cheered.",
+    "video_prompt": "A warm family scene in a cozy house, mother baking cookies, father with tools, child drawing at kitchen table, warm lighting, heartwarming animation",
+    "creativity_analysis": "Family depiction shows strong social awareness and emotional bonding. The arrangement of figures and their activities reflects the child's understanding of family roles and dynamics.",
+    "mood_analysis": "The warm color choices and close positioning of family members indicate feelings of security and love. The child feels emotionally connected to their family unit.",
+    "additional_insights": "Attention to domestic details (like the kitchen table setting) suggests the child values routine and stability. This is a healthy expression of attachment.",
+    "created_at": "2026-02-28T15:45:00Z"
+  },
+  {
+    "id": "mock-003",
+    "title": "Space Adventure",
+    "image_url": "https://picsum.photos/seed/art3/400/500",
+    "video_url": null,
+    "video_task_id": null,
+    "video_status": "pending",
+    "story_title": "Captain Star's Mission",
+    "story_content": "Captain Star zoomed through the galaxy in her sparkly spaceship, dodging asteroids and waving at friendly aliens. Her mission: to find the legendary Planet of Ice Cream! After flying past three suns and two purple nebulas, she finally spotted it - a whole planet made of every flavor imaginable. Chocolate mountains, vanilla oceans, and strawberry forests stretched as far as the eye could see. Captain Star landed with a soft splash in a lake of caramel.",
+    "video_prompt": "A child astronaut in a colorful spaceship flying through space, passing colorful planets, a planet made of ice cream with chocolate mountains, cartoon space adventure style",
+    "creativity_analysis": "The space theme combined with whimsical elements (ice cream planet) demonstrates excellent imaginative range. The child freely mixes reality and fantasy, showing creative confidence.",
+    "mood_analysis": "Adventurous and exploratory mood. The choice of space exploration as a theme suggests curiosity and a desire for new experiences. The positive resolution indicates optimism.",
+    "additional_insights": "The 'Captain Star' character suggests the child sees themselves as capable and brave. The ice cream destination adds a playful, age-appropriate wish fulfillment element.",
+    "created_at": "2026-02-25T09:00:00Z"
+  }
+]

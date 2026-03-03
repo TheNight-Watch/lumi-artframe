@@ -1,0 +1,615 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		65C28B782F5711ED009AA78E /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 65C28A012F570B01009AA78E /* Supabase */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		65C289B62F570A0B009AA78E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65C2899E2F570A0A009AA78E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65C289A52F570A0A009AA78E;
+			remoteInfo = lumi_artframe_claudecodeV2;
+		};
+		65C289C02F570A0B009AA78E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65C2899E2F570A0A009AA78E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65C289A52F570A0A009AA78E;
+			remoteInfo = lumi_artframe_claudecodeV2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		65C289A62F570A0A009AA78E /* lumi_artframe_claudecodeV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lumi_artframe_claudecodeV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		65C289B52F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lumi_artframe_claudecodeV2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		65C289BF2F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lumi_artframe_claudecodeV2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		65C289A82F570A0A009AA78E /* lumi_artframe_claudecodeV2 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = lumi_artframe_claudecodeV2;
+			sourceTree = "<group>";
+		};
+		65C289B82F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = lumi_artframe_claudecodeV2Tests;
+			sourceTree = "<group>";
+		};
+		65C289C22F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = lumi_artframe_claudecodeV2UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		65C289A32F570A0A009AA78E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65C28B782F5711ED009AA78E /* Supabase in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C289B22F570A0B009AA78E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C289BC2F570A0B009AA78E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		65C2899D2F570A0A009AA78E = {
+			isa = PBXGroup;
+			children = (
+				65C289A82F570A0A009AA78E /* lumi_artframe_claudecodeV2 */,
+				65C289B82F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests */,
+				65C289C22F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests */,
+				65C289A72F570A0A009AA78E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		65C289A72F570A0A009AA78E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65C289A62F570A0A009AA78E /* lumi_artframe_claudecodeV2.app */,
+				65C289B52F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests.xctest */,
+				65C289BF2F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		65C289A52F570A0A009AA78E /* lumi_artframe_claudecodeV2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65C289C92F570A0B009AA78E /* Build configuration list for PBXNativeTarget "lumi_artframe_claudecodeV2" */;
+			buildPhases = (
+				65C289A22F570A0A009AA78E /* Sources */,
+				65C289A32F570A0A009AA78E /* Frameworks */,
+				65C289A42F570A0A009AA78E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				65C289A82F570A0A009AA78E /* lumi_artframe_claudecodeV2 */,
+			);
+			name = lumi_artframe_claudecodeV2;
+			packageProductDependencies = (
+				65C28A012F570B01009AA78E /* Supabase */,
+			);
+			productName = lumi_artframe_claudecodeV2;
+			productReference = 65C289A62F570A0A009AA78E /* lumi_artframe_claudecodeV2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		65C289B42F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65C289CC2F570A0B009AA78E /* Build configuration list for PBXNativeTarget "lumi_artframe_claudecodeV2Tests" */;
+			buildPhases = (
+				65C289B12F570A0B009AA78E /* Sources */,
+				65C289B22F570A0B009AA78E /* Frameworks */,
+				65C289B32F570A0B009AA78E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65C289B72F570A0B009AA78E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				65C289B82F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests */,
+			);
+			name = lumi_artframe_claudecodeV2Tests;
+			packageProductDependencies = (
+			);
+			productName = lumi_artframe_claudecodeV2Tests;
+			productReference = 65C289B52F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		65C289BE2F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65C289CF2F570A0B009AA78E /* Build configuration list for PBXNativeTarget "lumi_artframe_claudecodeV2UITests" */;
+			buildPhases = (
+				65C289BB2F570A0B009AA78E /* Sources */,
+				65C289BC2F570A0B009AA78E /* Frameworks */,
+				65C289BD2F570A0B009AA78E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65C289C12F570A0B009AA78E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				65C289C22F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests */,
+			);
+			name = lumi_artframe_claudecodeV2UITests;
+			packageProductDependencies = (
+			);
+			productName = lumi_artframe_claudecodeV2UITests;
+			productReference = 65C289BF2F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		65C2899E2F570A0A009AA78E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					65C289A52F570A0A009AA78E = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					65C289B42F570A0B009AA78E = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 65C289A52F570A0A009AA78E;
+					};
+					65C289BE2F570A0B009AA78E = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 65C289A52F570A0A009AA78E;
+					};
+				};
+			};
+			buildConfigurationList = 65C289A12F570A0A009AA78E /* Build configuration list for PBXProject "lumi_artframe_claudecodeV2" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 65C2899D2F570A0A009AA78E;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				65C28A002F570B00009AA78E /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 65C289A72F570A0A009AA78E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				65C289A52F570A0A009AA78E /* lumi_artframe_claudecodeV2 */,
+				65C289B42F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests */,
+				65C289BE2F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		65C289A42F570A0A009AA78E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C289B32F570A0B009AA78E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C289BD2F570A0B009AA78E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		65C289A22F570A0A009AA78E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C289B12F570A0B009AA78E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C289BB2F570A0B009AA78E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		65C289B72F570A0B009AA78E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65C289A52F570A0A009AA78E /* lumi_artframe_claudecodeV2 */;
+			targetProxy = 65C289B62F570A0B009AA78E /* PBXContainerItemProxy */;
+		};
+		65C289C12F570A0B009AA78E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65C289A52F570A0A009AA78E /* lumi_artframe_claudecodeV2 */;
+			targetProxy = 65C289C02F570A0B009AA78E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		65C289C72F570A0B009AA78E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		65C289C82F570A0B009AA78E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		65C289CA2F570A0B009AA78E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need camera access to take photos of your artwork";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone access to record your story description";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumi.lumi-artframe-claudecodeV2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		65C289CB2F570A0B009AA78E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need camera access to take photos of your artwork";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone access to record your story description";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumi.lumi-artframe-claudecodeV2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		65C289CD2F570A0B009AA78E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumi.lumi-artframe-claudecodeV2Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lumi_artframe_claudecodeV2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/lumi_artframe_claudecodeV2";
+			};
+			name = Debug;
+		};
+		65C289CE2F570A0B009AA78E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumi.lumi-artframe-claudecodeV2Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lumi_artframe_claudecodeV2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/lumi_artframe_claudecodeV2";
+			};
+			name = Release;
+		};
+		65C289D02F570A0B009AA78E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumi.lumi-artframe-claudecodeV2UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = lumi_artframe_claudecodeV2;
+			};
+			name = Debug;
+		};
+		65C289D12F570A0B009AA78E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumi.lumi-artframe-claudecodeV2UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = lumi_artframe_claudecodeV2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		65C289A12F570A0A009AA78E /* Build configuration list for PBXProject "lumi_artframe_claudecodeV2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65C289C72F570A0B009AA78E /* Debug */,
+				65C289C82F570A0B009AA78E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65C289C92F570A0B009AA78E /* Build configuration list for PBXNativeTarget "lumi_artframe_claudecodeV2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65C289CA2F570A0B009AA78E /* Debug */,
+				65C289CB2F570A0B009AA78E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65C289CC2F570A0B009AA78E /* Build configuration list for PBXNativeTarget "lumi_artframe_claudecodeV2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65C289CD2F570A0B009AA78E /* Debug */,
+				65C289CE2F570A0B009AA78E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65C289CF2F570A0B009AA78E /* Build configuration list for PBXNativeTarget "lumi_artframe_claudecodeV2UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65C289D02F570A0B009AA78E /* Debug */,
+				65C289D12F570A0B009AA78E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		65C28A002F570B00009AA78E /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		65C28A012F570B01009AA78E /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65C28A002F570B00009AA78E /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 65C2899E2F570A0A009AA78E /* Project object */;
+}
