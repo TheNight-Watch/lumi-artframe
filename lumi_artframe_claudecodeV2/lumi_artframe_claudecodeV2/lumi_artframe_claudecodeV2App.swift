@@ -3,7 +3,7 @@ import SwiftUI
 @main
 struct lumi_artframe_claudecodeV2App: App {
     @State private var router = AppRouter()
-    @State private var services = ServiceContainer.mock
+    @State private var services = AppConfiguration.resolveServiceContainer()
 
     var body: some Scene {
         WindowGroup {

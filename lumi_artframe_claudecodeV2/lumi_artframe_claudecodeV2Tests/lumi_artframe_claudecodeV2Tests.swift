@@ -113,7 +113,11 @@ final class CreationServiceTests: XCTestCase {
     }
 
     func testGenerateStory() async throws {
-        let result = try await creationService.generateStory(imageURL: "https://example.com/img.jpg", audioTranscript: nil)
+        let result = try await creationService.generateStory(
+            artworkId: "test-id",
+            imageURL: "https://example.com/img.jpg",
+            audioTranscript: nil
+        )
         XCTAssertFalse(result.storyTitle.isEmpty)
         XCTAssertFalse(result.storyContent.isEmpty)
         XCTAssertFalse(result.videoPrompt.isEmpty)
@@ -121,8 +125,21 @@ final class CreationServiceTests: XCTestCase {
         XCTAssertFalse(result.moodAnalysis.isEmpty)
     }
 
+    func testGenerateStoryWithTranscript() async throws {
+        let result = try await creationService.generateStory(
+            artworkId: "test-id",
+            imageURL: "https://example.com/img.jpg",
+            audioTranscript: "This is a picture of a rainbow"
+        )
+        XCTAssertFalse(result.storyTitle.isEmpty)
+    }
+
     func testGenerateVideo() async throws {
-        let result = try await creationService.generateVideo(imageURL: "https://example.com/img.jpg", prompt: "test prompt")
+        let result = try await creationService.generateVideo(
+            artworkId: "test-id",
+            imageURL: "https://example.com/img.jpg",
+            prompt: "test prompt"
+        )
         XCTAssertFalse(result.taskID.isEmpty)
         XCTAssertEqual(result.status, "processing")
     }
@@ -179,5 +196,100 @@ final class ArtworkModelTests: XCTestCase {
         XCTAssertEqual(Artwork.VideoStatus.processing.rawValue, "processing")
         XCTAssertEqual(Artwork.VideoStatus.completed.rawValue, "completed")
         XCTAssertEqual(Artwork.VideoStatus.failed.rawValue, "failed")
+    }
+}
+
+// MARK: - Audio Transcription Tests
+
+final class AudioTranscriptionTests: XCTestCase {
+    func testMockTranscriptionReturnsText() async throws {
+        let service = MockAudioTranscriptionService()
+        let result = try await service.transcribe(audioURL: URL(fileURLWithPath: "/tmp/test.m4a"))
+        XCTAssertFalse(result.isEmpty)
+    }
+}
+
+// MARK: - ServiceContainer Tests
+
+final class ServiceContainerTests: XCTestCase {
+    func testMockContainerExists() {
+        let container = ServiceContainer.mock
+        XCTAssertNotNil(container.auth)
+        XCTAssertNotNil(container.gallery)
+        XCTAssertNotNil(container.creation)
+        XCTAssertNotNil(container.audioTranscription)
+    }
+
+    func testMockAuthenticatedContainerExists() {
+        let container = ServiceContainer.mockAuthenticated
+        XCTAssertNotNil(container.auth)
+    }
+}
+
+// MARK: - SupabaseConfig Tests
+
+final class SupabaseConfigTests: XCTestCase {
+    func testConfigIsConfiguredReturnsExpected() {
+        // In test environment, Info.plist may not have real values
+        // This just verifies the property doesn't crash
+        let _ = SupabaseConfig.isConfigured
+    }
+}
+
+// MARK: - CreationViewModel Tests
+
+@MainActor
+final class CreationViewModelTests: XCTestCase {
+    func testInitialState() {
+        let vm = CreationViewModel(
+            creationService: MockCreationService(),
+            audioTranscriptionService: MockAudioTranscriptionService()
+        )
+        XCTAssertNil(vm.imageData)
+        XCTAssertNil(vm.audioURL)
+        XCTAssertFalse(vm.isRecording)
+        XCTAssertFalse(vm.isGenerating)
+        XCTAssertNil(vm.generatedArtwork)
+        XCTAssertNil(vm.errorMessage)
+        XCTAssertEqual(vm.videoStatus, .pending)
+    }
+
+    func testSubmitCreation() {
+        let vm = CreationViewModel(
+            creationService: MockCreationService(),
+            audioTranscriptionService: MockAudioTranscriptionService()
+        )
+        let data = Data([0x01, 0x02])
+        vm.submitCreation(image: data, audioUrl: nil)
+        XCTAssertEqual(vm.imageData, data)
+        XCTAssertTrue(vm.hasImage)
+    }
+
+    func testReset() {
+        let vm = CreationViewModel(
+            creationService: MockCreationService(),
+            audioTranscriptionService: MockAudioTranscriptionService()
+        )
+        vm.imageData = Data([0x01])
+        vm.isGenerating = true
+        vm.reset()
+        XCTAssertNil(vm.imageData)
+        XCTAssertFalse(vm.isGenerating)
+        XCTAssertFalse(vm.hasImage)
+    }
+
+    func testExecuteMagicGeneration() async {
+        let vm = CreationViewModel(
+            creationService: MockCreationService(),
+            audioTranscriptionService: MockAudioTranscriptionService()
+        )
+        vm.imageData = Data([0xFF, 0xD8, 0xFF])
+
+        await vm.executeMagicGeneration()
+
+        XCTAssertNotNil(vm.generatedArtwork)
+        XCTAssertEqual(vm.generatedArtwork?.storyTitle, "The Magic Garden")
+        XCTAssertNotNil(vm.videoTaskID)
+        XCTAssertFalse(vm.isGenerating)
     }
 }

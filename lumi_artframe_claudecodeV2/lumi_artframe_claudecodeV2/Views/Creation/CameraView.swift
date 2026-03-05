@@ -193,5 +193,5 @@ struct ImagePicker: UIViewControllerRepresentable {
 #Preview {
     CameraView()
         .environment(AppRouter())
-        .environment(CreationViewModel(creationService: MockCreationService()))
+        .environment(CreationViewModel(creationService: MockCreationService(), audioTranscriptionService: MockAudioTranscriptionService()))
 }

@@ -30,7 +30,11 @@ struct SplashView: View {
                             RoundedRectangle(cornerRadius: 28)
                                 .stroke(Color.Theme.brutalBorder, lineWidth: BrutalStyle.borderWidth)
                         )
-                        .shadow(color: Color.Theme.brutalShadow, radius: 0, x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                        .background(
+                            RoundedRectangle(cornerRadius: 28)
+                                .fill(Color.Theme.brutalShadow)
+                                .offset(x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                        )
 
                     Image(systemName: "paintbrush.fill")
                         .font(.system(size: 60))
@@ -60,7 +64,11 @@ struct SplashView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.Theme.brutalBorder, lineWidth: 3)
                     )
-                    .shadow(color: Color.Theme.brutalShadow, radius: 0, x: 4, y: 4)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.Theme.brutalShadow)
+                            .offset(x: 4, y: 4)
+                    )
                     .rotationEffect(.degrees(-2))
             }
         }

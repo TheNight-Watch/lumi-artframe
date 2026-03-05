@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import Supabase
 
 @Observable
 class CreationViewModel {
@@ -16,10 +17,19 @@ class CreationViewModel {
     var videoStatus: Artwork.VideoStatus = .pending
     private var pollingTimer: Timer?
 
-    private let creationService: any CreationServiceProtocol
+    // Realtime subscription
+    private var realtimeChannel: RealtimeChannelV2?
+    private var realtimeTask: Task<Void, Never>?
 
-    init(creationService: any CreationServiceProtocol) {
+    private let creationService: any CreationServiceProtocol
+    private let audioTranscriptionService: any AudioTranscriptionServiceProtocol
+
+    init(
+        creationService: any CreationServiceProtocol,
+        audioTranscriptionService: any AudioTranscriptionServiceProtocol = MockAudioTranscriptionService()
+    ) {
         self.creationService = creationService
+        self.audioTranscriptionService = audioTranscriptionService
     }
 
     var hasImage: Bool { imageData != nil }
@@ -35,6 +45,13 @@ class CreationViewModel {
         errorMessage = nil
 
         do {
+            // Step 0: Transcribe audio if available (non-blocking)
+            var audioTranscript: String?
+            if let audioURL {
+                uploadProgressText = "Listening to your description..."
+                audioTranscript = try? await audioTranscriptionService.transcribe(audioURL: audioURL)
+            }
+
             // Step 1: Upload image
             uploadProgressText = "Uploading artwork..."
             let uploadResult = try await creationService.uploadImage(imageData: imageData)
@@ -42,13 +59,15 @@ class CreationViewModel {
             // Step 2: Generate story
             uploadProgressText = "Writing a story..."
             let storyResult = try await creationService.generateStory(
+                artworkId: uploadResult.id,
                 imageURL: uploadResult.imageURL,
-                audioTranscript: nil // TODO: transcribe audio if available
+                audioTranscript: audioTranscript
             )
 
             // Step 3: Submit video generation (async, don't wait)
             uploadProgressText = "Creating animation..."
             let videoResult = try await creationService.generateVideo(
+                artworkId: uploadResult.id,
                 imageURL: uploadResult.imageURL,
                 prompt: storyResult.videoPrompt
             )
@@ -74,14 +93,77 @@ class CreationViewModel {
             uploadProgressText = "Done!"
             isGenerating = false
 
-            // Start polling for video status
+            // Start monitoring video status (polling + Realtime)
             startVideoPolling()
+            if SupabaseConfig.isConfigured {
+                await subscribeToVideoStatus(artworkId: uploadResult.id)
+            }
 
         } catch {
             errorMessage = error.localizedDescription
             isGenerating = false
         }
     }
+
+    // MARK: - Realtime Subscription
+
+    func subscribeToVideoStatus(artworkId: String) async {
+        guard SupabaseConfig.isConfigured else { return }
+
+        let client = SupabaseClientFactory.shared.client
+        let channel = client.realtimeV2.channel("artwork-\(artworkId)")
+
+        let changes = channel.postgresChange(
+            UpdateAction.self,
+            schema: "public",
+            table: "artworks",
+            filter: .eq("id", value: artworkId)
+        )
+
+        try? await channel.subscribeWithError()
+        realtimeChannel = channel
+
+        // Listen for changes in background
+        realtimeTask = Task { [weak self] in
+            for await change in changes {
+                guard let self else { return }
+                await MainActor.run {
+                    self.handleRealtimeUpdate(change)
+                }
+            }
+        }
+    }
+
+    @MainActor
+    private func handleRealtimeUpdate(_ change: UpdateAction) {
+        // Decode the updated record as an Artwork
+        if let artwork = try? change.decodeRecord(as: ArtworkRealtimePayload.self, decoder: JSONDecoder()) {
+            if let status = Artwork.VideoStatus(rawValue: artwork.video_status ?? "") {
+                videoStatus = status
+                generatedArtwork?.videoStatus = status
+
+                if status == .completed {
+                    generatedArtwork?.videoURL = artwork.video_url
+                    stopVideoPolling()
+                    unsubscribeFromRealtime()
+                } else if status == .failed {
+                    stopVideoPolling()
+                    unsubscribeFromRealtime()
+                }
+            }
+        }
+    }
+
+    private func unsubscribeFromRealtime() {
+        realtimeTask?.cancel()
+        realtimeTask = nil
+        Task {
+            await realtimeChannel?.unsubscribe()
+            realtimeChannel = nil
+        }
+    }
+
+    // MARK: - Polling Fallback
 
     func startVideoPolling() {
         guard let taskID = videoTaskID else { return }
@@ -131,5 +213,14 @@ class CreationViewModel {
         videoTaskID = nil
         videoStatus = .pending
         stopVideoPolling()
+        unsubscribeFromRealtime()
     }
+}
+
+// MARK: - Realtime Payload
+
+private struct ArtworkRealtimePayload: Decodable {
+    let id: String
+    let video_status: String?
+    let video_url: String?
 }

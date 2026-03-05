@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SupabaseURL</key>
+	<string>$(SUPABASE_URL)</string>
+	<key>SupabaseAnonKey</key>
+	<string>$(SUPABASE_ANON_KEY)</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>We use speech recognition to transcribe your voice description of the artwork</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera access to photograph your artwork</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need microphone access to record your voice description of the artwork</string>
+</dict>
+</plist>

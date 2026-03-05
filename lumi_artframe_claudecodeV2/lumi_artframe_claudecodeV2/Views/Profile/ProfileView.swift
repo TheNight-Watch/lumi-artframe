@@ -7,10 +7,6 @@ struct ProfileView: View {
     @State private var artworkCount = 0
     @State private var userEmail = ""
 
-    private var vm: AuthViewModel {
-        viewModel ?? AuthViewModel(authService: services.auth)
-    }
-
     var body: some View {
         ZStack {
             Color.Theme.bg.ignoresSafeArea()
@@ -27,7 +23,11 @@ struct ProfileView: View {
                                     Circle()
                                         .stroke(Color.Theme.brutalBorder, lineWidth: BrutalStyle.borderWidth)
                                 )
-                                .shadow(color: Color.Theme.brutalShadow, radius: 0, x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                                .background(
+                                    Circle()
+                                        .fill(Color.Theme.brutalShadow)
+                                        .offset(x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                                )
 
                             Text("😊")
                                 .font(.system(size: 60))
@@ -78,7 +78,7 @@ struct ProfileView: View {
                     // Logout button
                     Button {
                         Task {
-                            await vm.logout(router: router)
+                            await viewModel?.logout(router: router)
                         }
                     } label: {
                         HStack {
@@ -96,7 +96,11 @@ struct ProfileView: View {
                             RoundedRectangle(cornerRadius: BrutalStyle.cornerRadius)
                                 .stroke(Color.Theme.brutalBorder, lineWidth: BrutalStyle.borderWidth)
                         )
-                        .shadow(color: Color.Theme.brutalShadow, radius: 0, x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                        .background(
+                            RoundedRectangle(cornerRadius: BrutalStyle.cornerRadius)
+                                .fill(Color.Theme.brutalShadow)
+                                .offset(x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                        )
                     }
                     .padding(.horizontal)
                     .padding(.top, 8)

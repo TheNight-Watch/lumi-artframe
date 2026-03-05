@@ -26,11 +26,11 @@ serve(async (req) => {
       );
     }
 
-    const { image_url, prompt } = await req.json();
+    const { artwork_id, image_url, prompt } = await req.json();
 
-    if (!image_url || !prompt) {
+    if (!artwork_id || !image_url || !prompt) {
       return new Response(
-        JSON.stringify({ code: "BAD_REQUEST", message: "image_url and prompt are required" }),
+        JSON.stringify({ code: "BAD_REQUEST", message: "artwork_id, image_url and prompt are required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -67,14 +67,14 @@ serve(async (req) => {
       throw new Error("No task_id returned from Seedance2");
     }
 
-    // Update artwork record with video task info
+    // Update artwork record using artwork_id (not image_url)
     const { error: updateError } = await supabase
       .from("artworks")
       .update({
         video_task_id: taskId,
         video_status: "processing",
       })
-      .eq("image_url", image_url)
+      .eq("id", artwork_id)
       .eq("user_id", user.id);
 
     if (updateError) {

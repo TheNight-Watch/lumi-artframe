@@ -39,7 +39,11 @@ struct ToastView: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.Theme.brutalBorder, lineWidth: 3)
         )
-        .shadow(color: Color.Theme.brutalShadow, radius: 0, x: 4, y: 4)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.Theme.brutalShadow)
+                .offset(x: 4, y: 4)
+        )
     }
 }
 

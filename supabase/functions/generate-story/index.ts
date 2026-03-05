@@ -6,7 +6,7 @@ const DEEPSEEK_API_KEY = Deno.env.get("DEEPSEEK_API_KEY") ?? "";
 const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
 
 const SYSTEM_PROMPT = `You are a creative children's story writer and child psychologist.
-Given an image of a child's drawing and optionally a voice transcript description, generate:
+Given a description of a child's drawing and optionally a voice transcript, generate:
 1. A fairy tale story inspired by the drawing (200-300 words, suitable for ages 3-12)
 2. A psychological analysis of the child's creativity and emotional state
 
@@ -43,21 +43,21 @@ serve(async (req) => {
       );
     }
 
-    const { image_url, audio_transcript } = await req.json();
+    const { artwork_id, image_url, audio_transcript } = await req.json();
 
-    if (!image_url) {
+    if (!artwork_id) {
       return new Response(
-        JSON.stringify({ code: "BAD_REQUEST", message: "image_url is required" }),
+        JSON.stringify({ code: "BAD_REQUEST", message: "artwork_id is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    // Build user message
-    let userMessage = `Here is a child's drawing: ${image_url}`;
+    // Build user message with text description (deepseek-chat is text-only)
+    let userMessage = `A child has created a drawing. The image is available at: ${image_url || "not provided"}`;
     if (audio_transcript) {
       userMessage += `\n\nThe child described the drawing as: "${audio_transcript}"`;
     }
-    userMessage += "\n\nPlease generate a story and psychological analysis.";
+    userMessage += "\n\nPlease generate a story and psychological analysis based on this information.";
 
     // Call Deepseek API
     const deepseekResponse = await fetch(DEEPSEEK_API_URL, {
@@ -92,7 +92,7 @@ serve(async (req) => {
 
     const storyData = JSON.parse(content);
 
-    // Update artwork record with story data
+    // Update artwork record using artwork_id (not image_url)
     const { error: updateError } = await supabase
       .from("artworks")
       .update({
@@ -104,7 +104,7 @@ serve(async (req) => {
         additional_insights: storyData.additional_insights,
         title: storyData.story_title,
       })
-      .eq("image_url", image_url)
+      .eq("id", artwork_id)
       .eq("user_id", user.id);
 
     if (updateError) {
@@ -113,7 +113,7 @@ serve(async (req) => {
 
     return new Response(
       JSON.stringify({
-        id: crypto.randomUUID(),
+        id: artwork_id,
         ...storyData,
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }

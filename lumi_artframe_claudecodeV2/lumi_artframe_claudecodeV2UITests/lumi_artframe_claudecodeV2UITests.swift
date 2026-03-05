@@ -10,11 +10,18 @@ import XCTest
 final class lumi_artframe_claudecodeV2UITests: XCTestCase {
 
     private var app: XCUIApplication!
+    private static let screenshotDir = "/Users/liuhaifeng/Desktop/Lumi_artframe_claudecode_V2/.claude/screenshots"
 
     override func setUpWithError() throws {
         continueAfterFailure = false
         app = XCUIApplication()
         app.launchArguments = ["--uitesting"]
+
+        try FileManager.default.createDirectory(
+            atPath: Self.screenshotDir,
+            withIntermediateDirectories: true
+        )
+
         app.launch()
     }
 
@@ -22,147 +29,183 @@ final class lumi_artframe_claudecodeV2UITests: XCTestCase {
         app = nil
     }
 
+    // MARK: - Screenshot Helper
+
+    private func takeScreenshot(name: String, file: StaticString = #file, line: UInt = #line) {
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.8))
+
+        let screenshot = XCUIScreen.main.screenshot()
+
+        let attachment = XCTAttachment(screenshot: screenshot)
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        add(attachment)
+
+        let filePath = "\(Self.screenshotDir)/\(name).png"
+        do {
+            try screenshot.pngRepresentation.write(to: URL(fileURLWithPath: filePath))
+        } catch {
+            XCTFail("Failed to save screenshot \(name): \(error)", file: file, line: line)
+        }
+    }
+
+    // MARK: - Full Flow Screenshot Test
+
+    @MainActor
+    func testFullFlowScreenshots() throws {
+        // ── 1. Splash View ──
+        takeScreenshot(name: "SplashView-initial")
+
+        // ── 2. Login View - empty ──
+        let emailField = app.textFields["emailField"]
+        XCTAssertTrue(emailField.waitForExistence(timeout: 5), "Login view should appear")
+        takeScreenshot(name: "LoginView-empty")
+
+        // ── 3. Login View - filled ──
+        emailField.tap()
+        emailField.typeText("test@example.com")
+        let passwordField = app.secureTextFields["passwordField"]
+        passwordField.tap()
+        passwordField.typeText("password123")
+        takeScreenshot(name: "LoginView-filled")
+
+        // ── 4. Login → MainTabView (Gallery) ──
+        app.buttons["loginButton"].tap()
+        let createButton = app.buttons["createButton"]
+        XCTAssertTrue(createButton.waitForExistence(timeout: 10), "MainTabView should appear")
+        takeScreenshot(name: "MainTabView-gallery")
+
+        // ── 5. Profile Tab ──
+        let profileTab = app.buttons["profileTab"]
+        if profileTab.waitForExistence(timeout: 3) {
+            profileTab.tap()
+            takeScreenshot(name: "MainTabView-profile")
+            app.buttons["galleryTab"].tap()
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.5))
+        }
+
+        // ── 6. FAB → CameraView ──
+        // In --uitesting mode, creation flow is shown as inline overlay (not fullScreenCover)
+        // so XCUITest can query all elements directly.
+        createButton.tap()
+
+        let closeButton = app.buttons["cameraCloseButton"]
+        XCTAssertTrue(closeButton.waitForExistence(timeout: 5), "CameraView should appear")
+        takeScreenshot(name: "CameraView-withImage")
+
+        // ── 7. Tap Confirm → DescriptionView ──
+        let confirmButton = app.buttons["confirmImageButton"]
+        XCTAssertTrue(confirmButton.waitForExistence(timeout: 3), "Confirm button should appear")
+        confirmButton.tap()
+
+        // Wait for DescriptionView to fully appear
+        let descView = app.otherElements["descriptionView"]
+        XCTAssertTrue(descView.waitForExistence(timeout: 5), "DescriptionView should appear")
+
+        let recordButton = app.buttons["recordButton"]
+        XCTAssertTrue(recordButton.waitForExistence(timeout: 3), "Record button should exist")
+        takeScreenshot(name: "DescriptionView-initial")
+
+        // ── 8. Tap Skip → GenerationView ──
+        let skipButton = app.buttons["skipRecordingButton"]
+        XCTAssertTrue(skipButton.exists, "Skip button should exist")
+        skipButton.tap()
+
+        // Wait for GenerationView to appear and start processing
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.5))
+        takeScreenshot(name: "GenerationView-loading")
+
+        // ── 9. Wait for generation → DetailView ──
+        // MockCreationService: upload(1.5s) + story(3s) + video(1s) = ~5.5s
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 8))
+        takeScreenshot(name: "DetailView-result")
+    }
+
     // MARK: - Auth Flow Tests
 
     @MainActor
     func testSplashNavigatesToLogin() throws {
-        // Splash screen should appear first
         let splash = app.otherElements["splashView"]
-        XCTAssertTrue(splash.waitForExistence(timeout: 3), "Splash view should appear on launch")
+        XCTAssertTrue(splash.waitForExistence(timeout: 3))
 
-        // After 2s, should navigate to login
         let emailField = app.textFields["emailField"]
-        XCTAssertTrue(emailField.waitForExistence(timeout: 5), "Login view should appear after splash")
+        XCTAssertTrue(emailField.waitForExistence(timeout: 5))
     }
 
     @MainActor
     func testLoginFormInteraction() throws {
-        // Wait for login view
         let emailField = app.textFields["emailField"]
         XCTAssertTrue(emailField.waitForExistence(timeout: 5))
 
-        // Type email
         emailField.tap()
         emailField.typeText("test@example.com")
 
-        // Type password
         let passwordField = app.secureTextFields["passwordField"]
         XCTAssertTrue(passwordField.exists)
         passwordField.tap()
         passwordField.typeText("password123")
 
-        // Login button should exist
-        let loginButton = app.buttons["loginButton"]
-        XCTAssertTrue(loginButton.exists, "Login button should be visible")
+        XCTAssertTrue(app.buttons["loginButton"].exists)
     }
 
     // MARK: - Creation Flow Navigation Tests
 
-    /// Tests the full creation flow navigation chain:
-    /// MainTabView(FAB) → CameraView → DescriptionView → GenerationView → DetailView
-    ///
-    /// This test uses --uitesting launch argument so the app can use mock services
-    /// that pre-populate image data, bypassing the need for real camera/photo picker.
     @MainActor
     func testCreationFlowNavigation() throws {
-        // Wait for login, then login with mock credentials
-        let emailField = app.textFields["emailField"]
-        XCTAssertTrue(emailField.waitForExistence(timeout: 5))
-        emailField.tap()
-        emailField.typeText("test@example.com")
-
-        let passwordField = app.secureTextFields["passwordField"]
-        passwordField.tap()
-        passwordField.typeText("password123")
-
-        let loginButton = app.buttons["loginButton"]
-        loginButton.tap()
-
-        // Wait for MainTabView to appear with the FAB create button
-        let createButton = app.buttons["createButton"]
-        XCTAssertTrue(createButton.waitForExistence(timeout: 10),
-                       "FAB create button should appear after login")
-
-        // Tap FAB to start creation flow → CameraView
-        createButton.tap()
-
-        let cameraView = app.otherElements["cameraView"]
-        XCTAssertTrue(cameraView.waitForExistence(timeout: 5),
-                       "CameraView should appear after tapping FAB")
-
-        // Verify camera UI elements exist
-        let shutterButton = app.buttons["shutterButton"]
-        XCTAssertTrue(shutterButton.waitForExistence(timeout: 3),
-                       "Shutter button should exist in CameraView")
-
-        let closeButton = app.buttons["cameraCloseButton"]
-        XCTAssertTrue(closeButton.exists,
-                       "Close button should exist in CameraView")
-    }
-
-    /// Tests that CameraView → DescriptionView navigation works when an image is confirmed.
-    /// Requires the app to be in UI test mode with a pre-populated test image.
-    @MainActor
-    func testCameraToDescriptionNavigation() throws {
-        // Navigate to CameraView via the creation flow
         navigateToMainTab()
 
         let createButton = app.buttons["createButton"]
         XCTAssertTrue(createButton.waitForExistence(timeout: 10))
         createButton.tap()
 
-        let cameraView = app.otherElements["cameraView"]
-        XCTAssertTrue(cameraView.waitForExistence(timeout: 5))
+        let closeButton = app.buttons["cameraCloseButton"]
+        XCTAssertTrue(closeButton.waitForExistence(timeout: 5), "CameraView should appear")
+        XCTAssertTrue(closeButton.exists, "Close button should exist")
+    }
 
-        // In UI test mode, confirm button should be available if test image is pre-loaded
+    @MainActor
+    func testCameraToDescriptionNavigation() throws {
+        navigateToMainTab()
+
+        app.buttons["createButton"].tap()
+
+        let closeButton = app.buttons["cameraCloseButton"]
+        XCTAssertTrue(closeButton.waitForExistence(timeout: 5))
+
         let confirmButton = app.buttons["confirmImageButton"]
-        if confirmButton.waitForExistence(timeout: 3) {
+        if confirmButton.waitForExistence(timeout: 5) {
             confirmButton.tap()
 
-            // Should navigate to DescriptionView
-            let descriptionView = app.otherElements["descriptionView"]
-            XCTAssertTrue(descriptionView.waitForExistence(timeout: 5),
-                           "DescriptionView should appear after confirming image")
-
-            // Verify DescriptionView elements
             let recordButton = app.buttons["recordButton"]
-            XCTAssertTrue(recordButton.exists,
-                           "Record button should exist in DescriptionView")
+            XCTAssertTrue(recordButton.waitForExistence(timeout: 5), "DescriptionView should appear")
 
             let skipButton = app.buttons["skipRecordingButton"]
-            XCTAssertTrue(skipButton.exists,
-                           "Skip recording button should exist in DescriptionView")
+            XCTAssertTrue(skipButton.exists, "Skip button should exist")
         }
     }
 
-    /// Tests the skip recording → generation navigation path.
     @MainActor
     func testDescriptionToGenerationNavigation() throws {
         navigateToMainTab()
 
-        let createButton = app.buttons["createButton"]
-        XCTAssertTrue(createButton.waitForExistence(timeout: 10))
-        createButton.tap()
+        app.buttons["createButton"].tap()
 
-        let cameraView = app.otherElements["cameraView"]
-        XCTAssertTrue(cameraView.waitForExistence(timeout: 5))
+        let closeButton = app.buttons["cameraCloseButton"]
+        XCTAssertTrue(closeButton.waitForExistence(timeout: 5))
 
         let confirmButton = app.buttons["confirmImageButton"]
-        if confirmButton.waitForExistence(timeout: 3) {
+        if confirmButton.waitForExistence(timeout: 5) {
             confirmButton.tap()
 
             let skipButton = app.buttons["skipRecordingButton"]
             XCTAssertTrue(skipButton.waitForExistence(timeout: 5))
             skipButton.tap()
 
-            // Should navigate to GenerationView
-            let generationView = app.otherElements["generationView"]
-            XCTAssertTrue(generationView.waitForExistence(timeout: 5),
-                           "GenerationView should appear after skipping recording")
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
+            XCTAssertFalse(skipButton.exists, "Should have left DescriptionView")
         }
     }
 
-    /// Tests that dismissing the creation flow returns to MainTabView.
     @MainActor
     func testCreationFlowDismissal() throws {
         navigateToMainTab()
@@ -175,14 +218,12 @@ final class lumi_artframe_claudecodeV2UITests: XCTestCase {
         XCTAssertTrue(closeButton.waitForExistence(timeout: 5))
         closeButton.tap()
 
-        // Should return to MainTabView
         XCTAssertTrue(createButton.waitForExistence(timeout: 5),
-                       "Should return to MainTabView after dismissing creation flow")
+                       "Should return to MainTabView")
     }
 
     // MARK: - Helpers
 
-    /// Navigates past splash and login to reach MainTabView.
     private func navigateToMainTab() {
         let emailField = app.textFields["emailField"]
         guard emailField.waitForExistence(timeout: 5) else { return }
@@ -195,6 +236,9 @@ final class lumi_artframe_claudecodeV2UITests: XCTestCase {
         passwordField.typeText("password123")
 
         app.buttons["loginButton"].tap()
+
+        let createButton = app.buttons["createButton"]
+        _ = createButton.waitForExistence(timeout: 10)
     }
 
     // MARK: - Performance

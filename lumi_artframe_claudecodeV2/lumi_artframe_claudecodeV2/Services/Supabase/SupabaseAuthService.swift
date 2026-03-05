@@ -4,11 +4,8 @@ import Supabase
 final class SupabaseAuthService: AuthServiceProtocol, @unchecked Sendable {
     private let client: SupabaseClient
 
-    init() {
-        self.client = SupabaseClient(
-            supabaseURL: URL(string: SupabaseConfig.url)!,
-            supabaseKey: SupabaseConfig.anonKey
-        )
+    init(client: SupabaseClient) {
+        self.client = client
     }
 
     func login(email: String, password: String) async throws -> AuthUser {

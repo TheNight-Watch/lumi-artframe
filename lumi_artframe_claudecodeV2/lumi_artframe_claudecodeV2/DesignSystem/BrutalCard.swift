@@ -15,7 +15,11 @@ struct BrutalCard<Content: View>: View {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(Color.Theme.brutalBorder, lineWidth: borderWidth)
             )
-            .shadow(color: Color.Theme.brutalShadow, radius: 0, x: shadowOffset, y: shadowOffset)
+            .background(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(Color.Theme.brutalShadow)
+                    .offset(x: shadowOffset, y: shadowOffset)
+            )
     }
 }
 

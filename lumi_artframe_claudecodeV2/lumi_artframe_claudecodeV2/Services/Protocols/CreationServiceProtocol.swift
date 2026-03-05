@@ -32,8 +32,8 @@ struct VideoSubmitResult: Sendable {
 
 protocol CreationServiceProtocol: Sendable {
     func uploadImage(imageData: Data) async throws -> UploadResult
-    func generateStory(imageURL: String, audioTranscript: String?) async throws -> StoryResult
-    func generateVideo(imageURL: String, prompt: String) async throws -> VideoSubmitResult
+    func generateStory(artworkId: String, imageURL: String, audioTranscript: String?) async throws -> StoryResult
+    func generateVideo(artworkId: String, imageURL: String, prompt: String) async throws -> VideoSubmitResult
     func checkVideoStatus(taskID: String) async throws -> Artwork.VideoStatus
     func getVideoURL(taskID: String) async throws -> String?
 }
