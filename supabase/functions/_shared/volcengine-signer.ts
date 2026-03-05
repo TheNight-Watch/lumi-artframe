@@ -58,6 +58,7 @@ export async function signVolcengineRequest(
 
   const payloadHash = await sha256(body);
 
+  // Volcengine signs: Content-Type, Host, and X-* headers (per Python SDK signv4.py)
   const canonicalHeaders =
     `content-type:application/json\n` +
     `host:${host}\n` +

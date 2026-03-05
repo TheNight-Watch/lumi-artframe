@@ -24,7 +24,11 @@ struct DescriptionView: View {
                             RoundedRectangle(cornerRadius: BrutalStyle.cardCornerRadius)
                                 .stroke(Color.Theme.brutalBorder, lineWidth: BrutalStyle.borderWidth)
                         )
-                        .shadow(color: Color.Theme.brutalShadow, radius: 0, x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                        .background(
+                            RoundedRectangle(cornerRadius: BrutalStyle.cardCornerRadius)
+                                .fill(Color.Theme.brutalShadow)
+                                .offset(x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                        )
                         .padding(.horizontal)
                 }
 
@@ -61,7 +65,11 @@ struct DescriptionView: View {
                                 Circle()
                                     .stroke(Color.Theme.brutalBorder, lineWidth: BrutalStyle.borderWidth)
                             )
-                            .shadow(color: Color.Theme.brutalShadow, radius: 0, x: 4, y: 4)
+                            .background(
+                                Circle()
+                                    .fill(Color.Theme.brutalShadow)
+                                    .offset(x: 4, y: 4)
+                            )
 
                         if creationVM.isRecording {
                             RoundedRectangle(cornerRadius: 4)
@@ -82,7 +90,7 @@ struct DescriptionView: View {
                 } label: {
                     Text("Or: Skip, let AI imagine")
                         .font(.system(size: 16))
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color(white: 0.4))
                         .underline()
                 }
                 .accessibilityIdentifier("skipRecordingButton")
@@ -90,6 +98,15 @@ struct DescriptionView: View {
             .padding(.vertical)
         }
         .accessibilityIdentifier("descriptionView")
+        .navigationBarBackButtonHidden(true)
+        .onAppear {
+            // Auto-skip recording in UI testing mode after screenshot delay
+            if ProcessInfo.processInfo.arguments.contains("--uitesting") {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                    skipRecording()
+                }
+            }
+        }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button { router.creationPath.removeLast() } label: {
@@ -157,5 +174,5 @@ struct DescriptionView: View {
         DescriptionView()
     }
     .environment(AppRouter())
-    .environment(CreationViewModel(creationService: MockCreationService()))
+    .environment(CreationViewModel(creationService: MockCreationService(), audioTranscriptionService: MockAudioTranscriptionService()))
 }

@@ -25,7 +25,10 @@ struct GalleryView: View {
                     router.showDetail(artwork: artwork)
                 }
             } else {
-                carouselView(galleryVM.artworks)
+                VStack(spacing: 0) {
+                    carouselView(galleryVM.artworks)
+                    Spacer(minLength: 0)
+                }
             }
         }
         .toolbar {
@@ -65,7 +68,11 @@ struct GalleryView: View {
                     Circle()
                         .stroke(Color.Theme.brutalBorder, lineWidth: 2)
                 )
-                .shadow(color: Color.Theme.brutalShadow, radius: 0, x: 2, y: 2)
+                .background(
+                    Circle()
+                        .fill(Color.Theme.brutalShadow)
+                        .offset(x: 2, y: 2)
+                )
 
             Text("😊")
                 .font(.system(size: 18))
@@ -121,7 +128,7 @@ struct GalleryView: View {
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
-        .frame(height: 520)
+        .frame(height: 500)
     }
 }
 

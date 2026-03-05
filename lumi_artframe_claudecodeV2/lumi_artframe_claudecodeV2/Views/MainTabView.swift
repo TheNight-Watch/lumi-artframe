@@ -6,55 +6,93 @@ struct MainTabView: View {
     @State private var selectedTab = 0
     @State private var creationVM: CreationViewModel?
 
+    private let isUITesting = ProcessInfo.processInfo.arguments.contains("--uitesting")
+
     var body: some View {
         @Bindable var router = router
-        ZStack(alignment: .bottom) {
-            // Content area
-            Group {
-                switch selectedTab {
-                case 0:
-                    NavigationStack {
-                        GalleryView()
-                    }
-                default:
-                    NavigationStack {
-                        ProfileView()
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            // Bottom tab bar
-            tabBar
-        }
-        .ignoresSafeArea(.keyboard)
-        .fullScreenCover(isPresented: $router.showCreationFlow) {
-            let vm = creationVM ?? CreationViewModel(creationService: services.creation)
-            NavigationStack(path: $router.creationPath) {
-                CameraView()
-                    .navigationDestination(for: CreationRoute.self) { route in
-                        switch route {
-                        case .camera:
-                            CameraView()
-                        case .description:
-                            DescriptionView()
-                        case .generation:
-                            GenerationView()
-                        case .detail:
-                            DetailView()
+        ZStack {
+            // Main tab content
+            ZStack(alignment: .bottom) {
+                // Content area
+                Group {
+                    switch selectedTab {
+                    case 0:
+                        NavigationStack {
+                            GalleryView()
+                        }
+                    default:
+                        NavigationStack {
+                            ProfileView()
                         }
                     }
-            }
-            .environment(router)
-            .environment(vm)
-            .onAppear {
-                if creationVM == nil {
-                    creationVM = vm
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .safeAreaInset(edge: .bottom) {
+                    // Reserve space for tab bar so content doesn't extend behind it
+                    Color.clear.frame(height: 90)
+                }
+
+                // Bottom tab bar
+                tabBar
+            }
+
+            // In UI testing mode, present creation flow inline (not fullScreenCover)
+            // so XCUITest can query all elements in the accessibility tree.
+            if isUITesting && router.showCreationFlow, let vm = creationVM {
+                NavigationStack(path: $router.creationPath) {
+                    CameraView()
+                        .navigationDestination(for: CreationRoute.self) { route in
+                            switch route {
+                            case .camera:
+                                CameraView()
+                            case .description:
+                                DescriptionView()
+                            case .generation:
+                                GenerationView()
+                            case .detail:
+                                DetailView()
+                            }
+                        }
+                }
+                .environment(router)
+                .environment(vm)
+                .onAppear {
+                    if vm.imageData == nil {
+                        vm.imageData = UIImage(systemName: "photo.artframe")?.pngData()
+                    }
+                }
+            }
+        }
+        .ignoresSafeArea(.keyboard)
+        // Production mode: use fullScreenCover for creation flow
+        .fullScreenCover(isPresented: Binding(
+            get: { !isUITesting && router.showCreationFlow },
+            set: { router.showCreationFlow = $0 }
+        )) {
+            if let vm = creationVM {
+                NavigationStack(path: $router.creationPath) {
+                    CameraView()
+                        .navigationDestination(for: CreationRoute.self) { route in
+                            switch route {
+                            case .camera:
+                                CameraView()
+                            case .description:
+                                DescriptionView()
+                            case .generation:
+                                GenerationView()
+                            case .detail:
+                                DetailView()
+                            }
+                        }
+                }
+                .environment(router)
+                .environment(vm)
             }
         }
         .onChange(of: router.showCreationFlow) { _, isShowing in
-            if !isShowing {
+            if isShowing && creationVM == nil {
+                creationVM = CreationViewModel(creationService: services.creation, audioTranscriptionService: services.audioTranscription)
+            } else if !isShowing {
                 creationVM?.reset()
                 creationVM = nil
             }
@@ -88,7 +126,11 @@ struct MainTabView: View {
                             Circle()
                                 .stroke(Color.Theme.brutalBorder, lineWidth: BrutalStyle.borderWidth)
                         )
-                        .shadow(color: Color.Theme.brutalShadow, radius: 0, x: 4, y: 4)
+                        .background(
+                            Circle()
+                                .fill(Color.Theme.brutalShadow)
+                                .offset(x: 4, y: 4)
+                        )
 
                     Image(systemName: "plus")
                         .font(.system(size: 28, weight: .bold))
@@ -113,6 +155,7 @@ struct MainTabView: View {
                         .fill(Color.Theme.brutalBorder)
                         .frame(height: 4)
                 }
+                .ignoresSafeArea(edges: .bottom)
         )
     }
 
@@ -128,6 +171,7 @@ struct MainTabView: View {
             }
             .foregroundColor(selectedTab == index ? .black : .gray)
         }
+        .accessibilityIdentifier("\(label.lowercased())Tab")
     }
 }
 

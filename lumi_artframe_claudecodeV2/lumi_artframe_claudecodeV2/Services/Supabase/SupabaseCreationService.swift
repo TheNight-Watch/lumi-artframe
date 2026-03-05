@@ -9,31 +9,62 @@ final class SupabaseCreationService: CreationServiceProtocol, @unchecked Sendabl
     }
 
     func uploadImage(imageData: Data) async throws -> UploadResult {
-        let result: UploadResponse = try await client.functions.invoke(
-            "upload-image",
-            options: .init(body: imageData)
-        )
-        return UploadResult(id: result.id, imageURL: result.imageURL)
+        // Get current user
+        let user = try await client.auth.session.user
+
+        // Upload to Supabase Storage directly (bypasses upload-image Edge Function)
+        let fileName = "\(user.id.uuidString)/\(Int(Date().timeIntervalSince1970))_artwork.jpg"
+        try await client.storage
+            .from("artworks")
+            .upload(fileName, data: imageData, options: .init(contentType: "image/jpeg"))
+
+        // Get public URL
+        let publicURL = try client.storage
+            .from("artworks")
+            .getPublicURL(path: fileName)
+
+        // Create artwork record in database
+        struct InsertPayload: Encodable {
+            let user_id: String
+            let image_url: String
+        }
+        let payload = InsertPayload(user_id: user.id.uuidString, image_url: publicURL.absoluteString)
+
+        struct ArtworkRow: Decodable {
+            let id: String
+            let image_url: String
+        }
+        let row: ArtworkRow = try await client
+            .from("artworks")
+            .insert(payload)
+            .select("id, image_url")
+            .single()
+            .execute()
+            .value
+
+        return UploadResult(id: row.id, imageURL: row.image_url)
     }
 
-    func generateStory(imageURL: String, audioTranscript: String?) async throws -> StoryResult {
+    func generateStory(artworkId: String, imageURL: String, audioTranscript: String?) async throws -> StoryResult {
         struct RequestBody: Encodable {
+            let artwork_id: String
             let image_url: String
             let audio_transcript: String?
         }
-        let body = RequestBody(image_url: imageURL, audio_transcript: audioTranscript)
+        let body = RequestBody(artwork_id: artworkId, image_url: imageURL, audio_transcript: audioTranscript)
         return try await client.functions.invoke(
             "generate-story",
             options: .init(body: body)
         )
     }
 
-    func generateVideo(imageURL: String, prompt: String) async throws -> VideoSubmitResult {
+    func generateVideo(artworkId: String, imageURL: String, prompt: String) async throws -> VideoSubmitResult {
         struct RequestBody: Encodable {
+            let artwork_id: String
             let image_url: String
             let prompt: String
         }
-        let body = RequestBody(image_url: imageURL, prompt: prompt)
+        let body = RequestBody(artwork_id: artworkId, image_url: imageURL, prompt: prompt)
         let result: VideoResponse = try await client.functions.invoke(
             "generate-video",
             options: .init(body: body)
@@ -67,16 +98,6 @@ final class SupabaseCreationService: CreationServiceProtocol, @unchecked Sendabl
 }
 
 // MARK: - Response Types
-
-private struct UploadResponse: Decodable {
-    let id: String
-    let imageURL: String
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case imageURL = "image_url"
-    }
-}
 
 private struct VideoResponse: Decodable {
     let taskID: String

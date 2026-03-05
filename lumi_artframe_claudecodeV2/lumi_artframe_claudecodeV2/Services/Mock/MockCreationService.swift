@@ -9,7 +9,7 @@ final class MockCreationService: CreationServiceProtocol, @unchecked Sendable {
         )
     }
 
-    func generateStory(imageURL: String, audioTranscript: String?) async throws -> StoryResult {
+    func generateStory(artworkId: String, imageURL: String, audioTranscript: String?) async throws -> StoryResult {
         try await Task.sleep(for: .seconds(3))
         return StoryResult(
             id: "story-\(UUID().uuidString.prefix(8))",
@@ -22,7 +22,7 @@ final class MockCreationService: CreationServiceProtocol, @unchecked Sendable {
         )
     }
 
-    func generateVideo(imageURL: String, prompt: String) async throws -> VideoSubmitResult {
+    func generateVideo(artworkId: String, imageURL: String, prompt: String) async throws -> VideoSubmitResult {
         try await Task.sleep(for: .seconds(1))
         return VideoSubmitResult(
             taskID: "mock-task-\(UUID().uuidString.prefix(8))",

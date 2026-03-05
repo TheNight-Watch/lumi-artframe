@@ -32,7 +32,11 @@ struct BrutalButton: View {
                 RoundedRectangle(cornerRadius: BrutalStyle.cornerRadius)
                     .stroke(Color.Theme.brutalBorder, lineWidth: BrutalStyle.borderWidth)
             )
-            .shadow(color: Color.Theme.brutalShadow, radius: 0, x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+            .background(
+                RoundedRectangle(cornerRadius: BrutalStyle.cornerRadius)
+                    .fill(Color.Theme.brutalShadow)
+                    .offset(x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+            )
         }
         .disabled(isLoading)
     }
@@ -57,7 +61,11 @@ struct BrutalCircleButton: View {
                     Circle()
                         .stroke(Color.Theme.brutalBorder, lineWidth: BrutalStyle.borderWidth)
                 )
-                .shadow(color: Color.Theme.brutalShadow, radius: 0, x: 4, y: 4)
+                .background(
+                    Circle()
+                        .fill(Color.Theme.brutalShadow)
+                        .offset(x: 4, y: 4)
+                )
         }
     }
 }

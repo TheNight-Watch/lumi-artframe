@@ -24,7 +24,11 @@ struct BrutalBadge: View {
             Capsule()
                 .stroke(Color.Theme.brutalBorder, lineWidth: 3)
         )
-        .shadow(color: Color.Theme.brutalShadow, radius: 0, x: 3, y: 3)
+        .background(
+            Capsule()
+                .fill(Color.Theme.brutalShadow)
+                .offset(x: 3, y: 3)
+        )
     }
 }
 

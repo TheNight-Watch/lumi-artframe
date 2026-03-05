@@ -31,11 +31,25 @@
 		65C289A62F570A0A009AA78E /* lumi_artframe_claudecodeV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lumi_artframe_claudecodeV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C289B52F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lumi_artframe_claudecodeV2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65C289BF2F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lumi_artframe_claudecodeV2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		65C28B7A2F5711EF009AA78E /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		65C28B7B2F5711F0009AA78E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 65C289A52F570A0A009AA78E /* lumi_artframe_claudecodeV2 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		65C289A82F570A0A009AA78E /* lumi_artframe_claudecodeV2 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				65C28B7B2F5711F0009AA78E /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
 			path = lumi_artframe_claudecodeV2;
 			sourceTree = "<group>";
 		};
@@ -80,6 +94,7 @@
 		65C2899D2F570A0A009AA78E = {
 			isa = PBXGroup;
 			children = (
+				65C28B7A2F5711EF009AA78E /* Secrets.xcconfig */,
 				65C289A82F570A0A009AA78E /* lumi_artframe_claudecodeV2 */,
 				65C289B82F570A0B009AA78E /* lumi_artframe_claudecodeV2Tests */,
 				65C289C22F570A0B009AA78E /* lumi_artframe_claudecodeV2UITests */,
@@ -401,6 +416,7 @@
 		};
 		65C289CA2F570A0B009AA78E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65C28B7A2F5711EF009AA78E /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -409,6 +425,7 @@
 				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = lumi_artframe_claudecodeV2/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need camera access to take photos of your artwork";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone access to record your story description";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -435,6 +452,7 @@
 		};
 		65C289CB2F570A0B009AA78E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65C28B7A2F5711EF009AA78E /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -443,6 +461,7 @@
 				DEVELOPMENT_TEAM = 6TJ6CF5ZXF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = lumi_artframe_claudecodeV2/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need camera access to take photos of your artwork";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone access to record your story description";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

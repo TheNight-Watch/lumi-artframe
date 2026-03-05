@@ -21,7 +21,11 @@ struct GenerationView: View {
                             Circle()
                                 .stroke(Color.Theme.brutalBorder, lineWidth: BrutalStyle.borderWidth)
                         )
-                        .shadow(color: Color.Theme.brutalShadow, radius: 0, x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                        .background(
+                            Circle()
+                                .fill(Color.Theme.brutalShadow)
+                                .offset(x: BrutalStyle.shadowOffset, y: BrutalStyle.shadowOffset)
+                        )
 
                     Image(systemName: "wand.and.stars")
                         .font(.system(size: 64))
@@ -46,7 +50,7 @@ struct GenerationView: View {
                         )
 
                     Capsule()
-                        .fill(Color.Theme.peach)
+                        .fill(Color.Theme.red.opacity(0.7))
                         .frame(width: progressWidth, height: 12)
                         .padding(.horizontal, 2)
                 }
@@ -97,5 +101,5 @@ struct GenerationView: View {
         GenerationView()
     }
     .environment(AppRouter())
-    .environment(CreationViewModel(creationService: MockCreationService()))
+    .environment(CreationViewModel(creationService: MockCreationService(), audioTranscriptionService: MockAudioTranscriptionService()))
 }

@@ -60,7 +60,14 @@ struct DetailView: View {
 
     private var topBar: some View {
         HStack {
-            BrutalCircleButton(icon: "arrow.left") { dismiss() }
+            BrutalCircleButton(icon: "arrow.left") {
+                if fallbackArtwork == nil, creationVM != nil {
+                    // Coming from creation flow — dismiss entire flow, return to gallery
+                    router.dismissCreation()
+                } else {
+                    dismiss()
+                }
+            }
             Spacer()
             Text("Detail")
                 .font(.system(size: 14, weight: .bold))
@@ -69,7 +76,11 @@ struct DetailView: View {
                 .padding(.vertical, 8)
                 .background(Color.black)
                 .clipShape(Capsule())
-                .shadow(color: Color.Theme.yellow, radius: 0, x: 3, y: 3)
+                .background(
+                    Capsule()
+                        .fill(Color.Theme.yellow)
+                        .offset(x: 3, y: 3)
+                )
             Spacer()
             BrutalCircleButton(icon: "square.and.arrow.up") {}
                 .opacity(0.5)
